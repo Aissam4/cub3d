@@ -118,7 +118,7 @@ void    raycast(t_cub *data)
     t_render    render;
     int x;
 
-    render  = (t_render){0};
+    // render  = (t_render){0};
     x = -1;
     while (++x < screenWidth)
     {

@@ -137,14 +137,13 @@ int	ft_exit(void)
 
 int main(int ac, char **av)
 {
-    t_cub   data;
-	int 	index;
-	int 	jndex;
-    data = (t_cub){0};
+    t_cub   	data;
    t_parsing	parsing;
+	int 		index;
+	int 		jndex;
+    // data = (t_cub){0};
 	index = -1;
 	jndex = -1;
-
 	if (parsing_directions_colors(&parsing, av, ac)
 		|| skip_newlines(&parsing))
 		return (1);
@@ -162,17 +161,22 @@ int main(int ac, char **av)
 	index = -1;
    while (++index < parsing.count_lines)
    {
+	   jndex = -1;
 	   while (++jndex < parsing.biggest_lines)
 	   {
 		   if (parsing.map[index][jndex] == '0')
 				data.worldMap[index][jndex] = 0;
-	   		else if (data.worldMap[index][jndex])
-				data.worldMap[index][jndex] ='1';
+	   		else if (data.worldMap[index][jndex] == '1')
+				data.worldMap[index][jndex] = 1;
 	   }
    }
-    // for (int i = 0; i < parsing.count_lines; i++)
-    //     for (int j = 0; j < parsing.biggest_lines; j++)
-    //         data.worldMap[i][j] = worldMap[i][j];
+	// puts("here");
+    for (int i = 0; i < parsing.count_lines; i++){
+		puts("");
+        for (int j = 0; j < parsing.biggest_lines; j++)
+            printf("%d", data.worldMap[i][j]);
+	}
+	exit(0);
     data.pos[X] = 22;
     data.pos[Y] = 12;
     data.dir[X] = -1;

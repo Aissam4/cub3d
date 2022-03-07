@@ -33,29 +33,30 @@
 
 typedef struct s_parsing
 {
-	int fd;
-	int index;
-	int counter;
-	char *tmpline;
-	char *NO;
-	char *SO;
-	char *WE;
-	char *EA;
-	int floor_red;
-	int floor_green;
-	int floor_blue;
-	int color_floor;
-	int ceiling_red;
-	int ceiling_green;
-	int ceiling_blue;
-	int color_ceiling;
-	char **argv;
-	char *first_line;
-	char **map;
-	size_t count_lines;
-	size_t biggest_lines;
-	size_t skip_lines;
+	int		fd;
+	int		index;
+	int		counter;
+	char	*tmpline;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		floor_red;
+	int		floor_green;
+	int		floor_blue;
+	int		color_floor;
+	int		ceiling_red;
+	int		ceiling_green;
+	int		ceiling_blue;
+	int		color_ceiling;
+	char	**argv;
+	char	*first_line;
+	char	**map;
+	size_t	count_lines;
+	size_t	biggest_lines;
+	size_t	skip_lines;
 }	t_parsing;
+
 
 typedef struct cub3D
 {
@@ -64,7 +65,7 @@ typedef struct cub3D
     double  plane[2];
     void    *mlx_ptr;
     void    *win_ptr;
-    int     worldMap[mapWidth][mapHeight];
+    int     **worldMap;
 }   t_cub;
 
 typedef struct rayCast
@@ -86,29 +87,35 @@ typedef struct rayCast
 
 
 void    raycast(t_cub *data);
-char	*get_next_line(int fd);
-char	*ft_strdup(char *str);
-size_t	ft_strlen(const char *s);
-void	*ft_memmove(void *dest, const void *src, size_t n);
-void	ft_bzero(void *s, size_t n);
-int search_for_player(t_parsing *parsing);
-void replace_spc_wall(t_parsing *parsing);
-void parse_map_assign(t_parsing *parsing);
-int check_map(t_parsing *parsing);
-int check_first_indexes(t_parsing *parsing);
-int check_fist_last_line(t_parsing *parsing);
-void parse_map(t_parsing *parsing);
-int skip_newlines(t_parsing *parsing);
-int skip_directions(t_parsing *parsing, char *argv[], int argc);
-int parsing_directions_colors(t_parsing *parsing, char *argv[], int argc);
-void init_parsing(t_parsing *parsing, char *argv[]);
-int assign_vars(t_parsing *parsing);
-int assign_ceiling(t_parsing *parsing, int i);
-int assign_floor(t_parsing *parsing, int i);
-int skip_spaces(char *tmpline);
-int check_file_name(char *str);
-int	ft_atoi(const char *str);
-void free_parsing(t_parsing *parsing);
-void replace_nl_with_null(char *str);
 void	*ft_memset(void *s, int c, size_t n);
+void	replace_nl_with_null(char *str);
+void	free_parsing(t_parsing *parsing);
+int		ft_atoi(const char *str);
+char	*ft_strdup(char *source);
+int		check_file_name(char *str);
+int		skip_spaces(char *tmpline);
+int		assign_floor(t_parsing *parsing, int i);
+int		assign_ceiling(t_parsing *parsing, int i);
+void	assign_vars_two(t_parsing *parsing);
+int		assign_vars(t_parsing *parsing);
+void	init_parsing(t_parsing *parsing, char *argv[]);
+void	parsing_directions_colors_two(t_parsing *parsing);
+int		parsing_directions_colors(t_parsing *parsing, char *argv[], int argc);
+int		skip_newlines(t_parsing *parsing);
+void	parse_map(t_parsing *parsing, size_t i);
+int		check_fist_last_line(t_parsing *parsing);
+int		check_first_indexes(t_parsing *parsing);
+int		check_map(t_parsing *parsing, int i, int j);
+void	parse_map_assign_two(t_parsing *parsing, size_t *i);
+void	parse_map_assign(t_parsing *parsing, size_t i);
+void	replace_spc_wall(t_parsing *parsing);
+int		search_for_player(t_parsing *parsing, int i, int j, int count);
+void	ft_bzero(void *s, size_t n);
+void	*ft_memmove(void *dest, const void *src, size_t n);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+int		contains_newline(char const *s1);
+char	*first_line(char *str);
+char	*second_part(char *str);
+char	*get_next_line(int fd);
 #endif

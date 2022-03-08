@@ -132,6 +132,7 @@ void    raycast(t_cub *data)
         compute_delta_dist(data, &render);
         compute_step_dist(data, &render);
         dda(data, &render);
+		exit(0);
         compute_perp_wall_dist(&render);
         compute_line_height(&render);
         find_wall_color(data, &render);

@@ -8,6 +8,8 @@
 # include <math.h>
 # include <mlx.h>
 
+#define mapWidth 24
+#define mapHeight 24
 #define screenWidth 600
 #define screenHeight 600
 

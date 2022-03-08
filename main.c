@@ -128,9 +128,9 @@ int main(int ac, char **av)
 	if (search_for_player(&parsing, 0, 0, 0))
 		return (1);
 	close(parsing.fd);
-	data.worldMap = (int **)malloc(sizeof(int *) * parsing.count_lines);
+	data.worldMap = (int **)malloc(sizeof(int *) * parsing.count_lines + 1);
 	while (++index < parsing.count_lines)
-		data.worldMap[index] = (int *)malloc(sizeof(int ) * parsing.biggest_lines);
+		data.worldMap[index] = (int *)malloc(sizeof(int ) * parsing.biggest_lines + 1);
 	index = -1;
    while (++index < parsing.count_lines)
    {
@@ -143,15 +143,11 @@ int main(int ac, char **av)
 				data.worldMap[index][jndex] = 1;
 	   }
    }
-    for (int i = 0; i < parsing.count_lines; i++){
-		puts("");
-        for (int j = 0; j < parsing.biggest_lines; j++)
-            printf("%d", data.worldMap[i][j]);
-	}
-    data.pos[X] = 22;
-    data.pos[Y] = 12;
-    data.dir[X] = -1;
-    data.dir[Y] = 0;
+    // for (int i = 0; i < parsing.count_lines; i++){
+	// 	puts("");
+    //     for (int j = 0; j < parsing.biggest_lines; j++)
+    //         printf("%d", data.worldMap[i][j]);
+	// }
     data.plane[X] = 0;
     data.plane[Y] = 0.66;
     data.mlx_ptr = mlx_init();

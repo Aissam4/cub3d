@@ -12,11 +12,16 @@ static void compute_delta_dist(t_cub *d, t_render *r)
     r->map[X] = (int)d->pos[X];
     r->map[Y] = (int)d->pos[Y];
     r->delta_dist[X] = fabs(1 / r->ray_dir[X]);
+	r->side_dist[X] = 0.0;
+	r->side_dist[Y] = 0.0;
     if (r->ray_dir[X] == 0)
         r->delta_dist[X] = 1e30;
     r->delta_dist[Y] = fabs(1 / r->ray_dir[Y]);
     if (r->ray_dir[Y] == 0)
         r->delta_dist[Y] = 1e30;
+	r->perp_wall_dist = 0.0;
+	r->step[X] = 0.0;
+	r->step[Y] = 0.0;
 }
 
 static void compute_step_dist(t_cub *d, t_render *r)
@@ -46,7 +51,7 @@ static void compute_step_dist(t_cub *d, t_render *r)
 static void dda(t_cub *d, t_render *r)
 {
     r->hit = 0;
-    while (r->hit == 0)
+    while (!r->hit)
     {
         if (r->side_dist[X] < r->side_dist[Y])
         {
@@ -60,7 +65,8 @@ static void dda(t_cub *d, t_render *r)
             r->map[Y] += r->step[Y];
             r->side = Y;
         }
-        r->hit = (d->worldMap[r->map[X]][r->map[Y]] != 0);
+        if (d->worldMap[r->map[X]][r->map[Y]] > 0)
+			r->hit = 1;
     }
 }
 
@@ -115,11 +121,11 @@ static void draw_ver_line(t_cub *d, t_render *r, int x)
 
 void    raycast(t_cub *data)
 {
+    int 		x;
     t_render    render;
-    int x;
 
-    // render  = (t_render){0};
     x = -1;
+    render  = (t_render){0};
     while (++x < screenWidth)
     {
         compute_ray_dir(data, &render, x);

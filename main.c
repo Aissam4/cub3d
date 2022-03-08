@@ -141,7 +141,8 @@ int main(int ac, char **av)
    t_parsing	parsing;
 	int 		index;
 	int 		jndex;
-    // data = (t_cub){0};
+
+    data = (t_cub){0};
 	index = -1;
 	jndex = -1;
 	if (parsing_directions_colors(&parsing, av, ac)
@@ -166,17 +167,15 @@ int main(int ac, char **av)
 	   {
 		   if (parsing.map[index][jndex] == '0')
 				data.worldMap[index][jndex] = 0;
-	   		else if (data.worldMap[index][jndex] == '1')
+	   		else if (parsing.map[index][jndex] == '1')
 				data.worldMap[index][jndex] = 1;
 	   }
    }
-	// puts("here");
     for (int i = 0; i < parsing.count_lines; i++){
 		puts("");
         for (int j = 0; j < parsing.biggest_lines; j++)
             printf("%d", data.worldMap[i][j]);
 	}
-	exit(0);
     data.pos[X] = 22;
     data.pos[Y] = 12;
     data.dir[X] = -1;

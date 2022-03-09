@@ -143,11 +143,10 @@ int main(int ac, char **av)
 				data.worldMap[index][jndex] = 1;
 	   }
    }
-    // for (int i = 0; i < parsing.count_lines; i++){
-	// 	puts("");
-    //     for (int j = 0; j < parsing.biggest_lines; j++)
-    //         printf("%d", data.worldMap[i][j]);
-	// }
+	data.pos[X] = 12;
+    data.pos[Y] = 12;
+	data.dir[X] = -1;
+    data.dir[Y] = 0;
     data.plane[X] = 0;
     data.plane[Y] = 0.66;
     data.mlx_ptr = mlx_init();

@@ -66,6 +66,7 @@ typedef struct cub3D
     void    *mlx_ptr;
     void    *win_ptr;
     int     **worldMap;
+	int		direction;
 }   t_cub;
 
 typedef struct rayCast

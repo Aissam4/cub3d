@@ -1,5 +1,16 @@
-#include "cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abarchil <abarchil@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 14:24:28 by abarchil          #+#    #+#             */
+/*   Updated: 2022/03/09 14:57:05 by abarchil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "cub3D.h"
 int	search_for_player(t_parsing *parsing, int i, int j, int count)
 {
 	while (parsing->map[i])
@@ -141,10 +152,24 @@ int main(int ac, char **av)
 				data.worldMap[index][jndex] = 0;
 	   		else if (parsing.map[index][jndex] == '1')
 				data.worldMap[index][jndex] = 1;
+			else
+			{
+				if (parsing.map[index][jndex] == 'S')
+					data.direction = 5;
+				else if (parsing.map[index][jndex] == 'W')
+					data.direction = 4;
+				else if (parsing.map[index][jndex] == 'E')
+					data.direction = 3;
+				else if (parsing.map[index][jndex] == 'N')
+					 data.direction= 2;
+				data.worldMap[index][jndex]= 0;
+				data.pos[X] = index;
+				data.pos[Y] = jndex;
+			}
+
+				
 	   }
    }
-	data.pos[X] = 12;
-    data.pos[Y] = 12;
 	data.dir[X] = -1;
     data.dir[Y] = 0;
     data.plane[X] = 0;

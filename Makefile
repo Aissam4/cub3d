@@ -6,7 +6,7 @@
 #    By: abarchil <abarchil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/04 15:37:58 by abarchil          #+#    #+#              #
-#    Updated: 2022/03/06 19:31:02 by abarchil         ###   ########.fr        #
+#    Updated: 2022/03/09 15:44:08 by abarchil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ clean :
 	@echo "$(YELLOW)           		<----------- REMOVING OBJECT FILES ----------->$(RESET)"
 	@rm -rf $(OBJ)
 fclean : clean
-	@echo "$(YELLOW)           		<----------- REMOVING MINISHELL ----------->$(RESET)"
+	@echo "$(YELLOW)           		<----------- REMOVING $(NAME) ----------->$(RESET)"
 	@rm -rf $(NAME)
 re : fclean all
 .PHONY : clean fclean all re

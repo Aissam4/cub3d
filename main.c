@@ -6,7 +6,7 @@
 /*   By: abarchil <abarchil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:24:28 by abarchil          #+#    #+#             */
-/*   Updated: 2022/03/09 14:57:05 by abarchil         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:49:36 by abarchil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int main(int ac, char **av)
 	close(parsing.fd);
 	data.worldMap = (int **)malloc(sizeof(int *) * parsing.count_lines + 1);
 	while (++index < parsing.count_lines)
-		data.worldMap[index] = (int *)malloc(sizeof(int ) * parsing.biggest_lines + 1);
+		data.worldMap[index] = (int *)malloc(sizeof(int) * parsing.biggest_lines + 1);
 	index = -1;
    while (++index < parsing.count_lines)
    {
@@ -154,26 +154,27 @@ int main(int ac, char **av)
 				data.worldMap[index][jndex] = 1;
 			else
 			{
-				if (parsing.map[index][jndex] == 'S')
-					data.direction = 5;
-				else if (parsing.map[index][jndex] == 'W')
-					data.direction = 4;
-				else if (parsing.map[index][jndex] == 'E')
-					data.direction = 3;
-				else if (parsing.map[index][jndex] == 'N')
-					 data.direction= 2;
-				data.worldMap[index][jndex]= 0;
 				data.pos[X] = index;
 				data.pos[Y] = jndex;
-			}
-
-				
+				data.worldMap[index][jndex]= 0;
+				if (parsing.map[index][jndex] == 'E' || parsing.map[index][jndex] == 'W')
+                {
+                    data.dir[X] = 0;
+		            data.dir[Y] = (-(parsing.map[index][jndex] == 'W') || 1);
+		            data.plane[X] = 0.66 * (-(parsing.map[index][jndex] == 'W') || 1);
+		            data.plane[Y] = 0;
+                
+	            }
+                else if (parsing.map[index][jndex] == 'S' || parsing.map[index][jndex] == 'N')
+                {
+		            data.dir[X] = (-(parsing.map[index][jndex] == 'S') || 1);
+                    data.dir[Y] = 0;
+                    data.plane[X] = 0;
+		            data.plane[Y] = -0.66 * (-(parsing.map[index][jndex] == 'S') || 1);
+                }
+			}	
 	   }
    }
-	data.dir[X] = -1;
-    data.dir[Y] = 0;
-    data.plane[X] = 0;
-    data.plane[Y] = 0.66;
     data.mlx_ptr = mlx_init();
     data.win_ptr = mlx_new_window(data.mlx_ptr, screenWidth, screenHeight, "cub3D");
     raycast(&data);

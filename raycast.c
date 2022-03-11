@@ -117,20 +117,20 @@ static void find_wall_color(t_cub *d, t_render *r)
         r->color /= 2;
 }
 
-static void draw_ver_line(t_cub *d, t_render *r, int x)
+static void draw_ver_line(t_cub *d, t_render *r, int x, t_parsing *parsing)
 {
     int y;
 
     y = 0;
     while (y < r->draw_start)
-        mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, SKY);
+        mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, parsing->color_ceiling);
     while (y < r->draw_end)
         mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, r->color);
     while (y < screenHeight)
-        mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, GRASS);
+        mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, parsing->color_floor);
 }
 
-void    raycast(t_cub *data)
+void    raycast(t_cub *data, t_parsing *parsing)
 {
     int 		x;
     t_render    render;
@@ -146,6 +146,6 @@ void    raycast(t_cub *data)
         compute_perp_wall_dist(&render);
         compute_line_height(&render);
         find_wall_color(data, &render);
-        draw_ver_line(data, &render, x);
+        draw_ver_line(data, &render, x, parsing);
     }
 }

@@ -49,7 +49,7 @@ void	ft_debug(t_parsing *parsing)
 		printf("-%s-\n", parsing->map[i++]);
 }
 
-static int key_handle(int key, t_cub *d)
+static int key_handle(int key, t_cub *d, t_parsing *parsing)
 {
     double  old_dir_x;
     double  old_plane_x;
@@ -108,7 +108,7 @@ static int key_handle(int key, t_cub *d)
         return (0);
     d->pos[X] += d_[X];
 	d->pos[Y] += d_[Y];
-    raycast(d);
+    raycast(d, parsing);
     return (0);
 }
 
@@ -191,7 +191,7 @@ int main(int ac, char **av)
    }
     data.mlx_ptr = mlx_init();
     data.win_ptr = mlx_new_window(data.mlx_ptr, screenWidth, screenHeight, "cub3D");
-    raycast(&data);
+    raycast(&data, &parsing);
     mlx_hook(data.win_ptr, 2, 0, key_handle, &data);
     mlx_hook(data.win_ptr, 17, 2, &ft_exit, &data);
     mlx_loop(data.mlx_ptr);

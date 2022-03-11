@@ -87,7 +87,7 @@ typedef struct rayCast
 }   t_render;
 
 
-void    raycast(t_cub *data);
+void    raycast(t_cub *data, t_parsing *parsing);
 void	*ft_memset(void *s, int c, size_t n);
 void	replace_nl_with_null(char *str);
 void	free_parsing(t_parsing *parsing);

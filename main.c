@@ -6,7 +6,7 @@
 /*   By: abarchil <abarchil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 14:24:28 by abarchil          #+#    #+#             */
-/*   Updated: 2022/03/10 17:49:36 by abarchil         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:14:44 by abarchil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,20 +157,34 @@ int main(int ac, char **av)
 				data.pos[X] = index;
 				data.pos[Y] = jndex;
 				data.worldMap[index][jndex]= 0;
-				if (parsing.map[index][jndex] == 'E' || parsing.map[index][jndex] == 'W')
+				if (parsing.map[index][jndex] == 'E')
                 {
                     data.dir[X] = 0;
-		            data.dir[Y] = (-(parsing.map[index][jndex] == 'W') || 1);
-		            data.plane[X] = 0.66 * (-(parsing.map[index][jndex] == 'W') || 1);
+		            data.dir[Y] = 1;
+		            data.plane[X] = 0.66;
 		            data.plane[Y] = 0;
                 
 	            }
-                else if (parsing.map[index][jndex] == 'S' || parsing.map[index][jndex] == 'N')
+                else if (parsing.map[index][jndex] == 'W')
                 {
-		            data.dir[X] = (-(parsing.map[index][jndex] == 'S') || 1);
+                    data.dir[X] = 0;
+                    data.dir[Y] = -1;
+                    data.plane[X] = -0.66;
+                    data.plane[Y] = 0;
+                }
+                else if (parsing.map[index][jndex] == 'S')
+                {
+		            data.dir[X] = -1;
                     data.dir[Y] = 0;
                     data.plane[X] = 0;
-		            data.plane[Y] = -0.66 * (-(parsing.map[index][jndex] == 'S') || 1);
+		            data.plane[Y] = 0.66;
+                }
+                else if (parsing.map[index][jndex] == 'N')
+                {
+                    data.dir[X] = 1;
+                    data.dir[Y] = 0;
+                    data.plane[X] = 0;
+                    data.plane[Y] = -0.66;
                 }
 			}	
 	   }

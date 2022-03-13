@@ -1,4 +1,4 @@
-C      255,0,0
+C      0,255,0
 NO         ./path_to_the_north_texture
 EA         ./path_to_the_east_texture
 WE         ./path_to_the_west_texture

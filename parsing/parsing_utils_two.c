@@ -78,8 +78,8 @@ int	assign_ceiling(t_parsing *parsing, int i)
 		|| parsing->ceiling_blue > 255 || parsing->ceiling_red < 0
 		|| parsing->ceiling_green < 0 || parsing->ceiling_blue < 0)
 		return (free_parsing(parsing), printf("Error : Map Error : 0x4\n"), 1);
-	parsing->color_ceiling = (parsing->floor_red << 16)
-		+ (parsing->floor_green << 8) + parsing->floor_blue;
+	parsing->color_ceiling = (parsing->ceiling_red << 16)
+		+ (parsing->ceiling_green << 8) + parsing->ceiling_blue;
 	parsing->counter += 1;
 	return (0);
 }

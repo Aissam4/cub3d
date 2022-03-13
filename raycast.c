@@ -137,6 +137,7 @@ void    raycast(t_cub *data, t_parsing *parsing)
 
     x = -1;
     render  = (t_render){0};
+            mlx_clear_window(data->mlx_ptr, data->win_ptr);
     while (++x < screenWidth)
     {
         compute_ray_dir(data, &render, x);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
 static void compute_ray_dir(t_cub *d, t_render *r, int x)
 {
     r->camera_x = 2.0 * x / screenWidth - 1.0;
@@ -123,11 +124,11 @@ static void draw_ver_line(t_cub *d, t_render *r, int x, t_parsing *parsing)
 
     y = 0;
     while (y < r->draw_start)
-        mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, parsing->color_ceiling);
+        my_mlx_pixel_put(&img, x, y++, parsing->color_ceiling);
     while (y < r->draw_end)
-        mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, r->color);
+		my_mlx_pixel_put(&img, x, y++, r->color);
     while (y < screenHeight)
-        mlx_pixel_put(d->mlx_ptr, d->win_ptr, x, y++, parsing->color_floor);
+        my_mlx_pixel_put(&img, x, y++, parsing->color_floor);
 }
 
 void    raycast(t_cub *data, t_parsing *parsing)
@@ -137,7 +138,7 @@ void    raycast(t_cub *data, t_parsing *parsing)
 
     x = -1;
     render  = (t_render){0};
-            mlx_clear_window(data->mlx_ptr, data->win_ptr);
+    mlx_clear_window(data->mlx_ptr, data->win_ptr);
     while (++x < screenWidth)
     {
         compute_ray_dir(data, &render, x);
@@ -149,4 +150,9 @@ void    raycast(t_cub *data, t_parsing *parsing)
         find_wall_color(data, &render);
         draw_ver_line(data, &render, x, parsing);
     }
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img.img, 0, 0);
 }
+
+
+// inset textures and then raycast it using minilibx// use the same raycast function for the rest of the game
+// use the same minilibx functions for the rest of the game

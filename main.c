@@ -11,6 +11,15 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void	my_mlx_pixel_put(t_dataa *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
 int	search_for_player(t_parsing *parsing, int i, int j, int count)
 {
 	while (parsing->map[i])
@@ -51,65 +60,65 @@ void	ft_debug(t_parsing *parsing)
 
 static int key_handle(int key, t_cub *d)
 {
-    double  old_dir_x;
-    double  old_plane_x;
-    double	mv_speed;
-    double  d_[2];
+	double  old_dir_x;
+	double  old_plane_x;
+	double	mv_speed;
+	double  d_[2];
 
-    d_[X] = 0.0;
+	d_[X] = 0.0;
 	d_[Y] = 0.0;
-    if (key == ESC_K)
-        exit(EXIT_SUCCESS);
-    else if (key == UP_K)
-    {
-        if (d->worldMap[(int)(d->pos[X] + d->dir[X] * moveSpeed)][(int)d->pos[Y]] == 0)
-            d->pos[X] += d->dir[X] * moveSpeed;
-        if (d->worldMap[(int)d->pos[X]][(int)(d->pos[Y] + d->dir[Y] * moveSpeed)] == 0)
-            d->pos[Y] += d->dir[Y] * moveSpeed;
-    }
-    else if (key == DOWN_K)
-    {
-        if (d->worldMap[(int)(d->pos[X] - d->dir[X] * moveSpeed)][(int)d->pos[Y]] == 0)
-            d->pos[X] -= d->dir[X] * moveSpeed;
-        if (d->worldMap[(int)d->pos[X]][(int)(d->pos[Y] - d->dir[Y] * moveSpeed)] == 0)
-            d->pos[Y] -= d->dir[Y] * moveSpeed;
-    }
-    else if (key == R_LFT)
-    {
-        old_dir_x = d->dir[X];
-        d->dir[X] = old_dir_x * cos(rotSpeed) - d->dir[Y] * sin(rotSpeed);
-        d->dir[Y] = old_dir_x * sin(rotSpeed) + d->dir[Y] * cos(rotSpeed);
-        old_plane_x = d->plane[X];
-        d->plane[X] = old_plane_x * cos(rotSpeed) - d->plane[Y] * sin(rotSpeed);
-        d->plane[Y] = old_plane_x * sin(rotSpeed) + d->plane[Y] * cos(rotSpeed);
-    }
-    else if (key == R_RGHT)
-    {
-        old_dir_x = d->dir[X];
-        d->dir[X] = old_dir_x * cos(-rotSpeed) - d->dir[Y] * sin(-rotSpeed);
-        d->dir[Y] = old_dir_x * sin(-rotSpeed) + d->dir[Y] * cos(-rotSpeed);
-        old_plane_x = d->plane[X];
-        d->plane[X] = old_plane_x * cos(-rotSpeed) - d->plane[Y] * sin(-rotSpeed);
-        d->plane[Y] = old_plane_x * sin(-rotSpeed) + d->plane[Y] * cos(-rotSpeed);
-    }
-    else if (key == LFT_K)
-    {
-        mv_speed = moveSpeed * -1 ;
+	if (key == ESC_K)
+		exit(EXIT_SUCCESS);
+	else if (key == UP_K)
+	{
+		if (d->worldMap[(int)(d->pos[X] + d->dir[X] * moveSpeed)][(int)d->pos[Y]] == 0)
+			d->pos[X] += d->dir[X] * moveSpeed;
+		if (d->worldMap[(int)d->pos[X]][(int)(d->pos[Y] + d->dir[Y] * moveSpeed)] == 0)
+			d->pos[Y] += d->dir[Y] * moveSpeed;
+	}
+	else if (key == DOWN_K)
+	{
+		if (d->worldMap[(int)(d->pos[X] - d->dir[X] * moveSpeed)][(int)d->pos[Y]] == 0)
+			d->pos[X] -= d->dir[X] * moveSpeed;
+		if (d->worldMap[(int)d->pos[X]][(int)(d->pos[Y] - d->dir[Y] * moveSpeed)] == 0)
+			d->pos[Y] -= d->dir[Y] * moveSpeed;
+	}
+	else if (key == R_LFT)
+	{
+		old_dir_x = d->dir[X];
+		d->dir[X] = old_dir_x * cos(rotSpeed) - d->dir[Y] * sin(rotSpeed);
+		d->dir[Y] = old_dir_x * sin(rotSpeed) + d->dir[Y] * cos(rotSpeed);
+		old_plane_x = d->plane[X];
+		d->plane[X] = old_plane_x * cos(rotSpeed) - d->plane[Y] * sin(rotSpeed);
+		d->plane[Y] = old_plane_x * sin(rotSpeed) + d->plane[Y] * cos(rotSpeed);
+	}
+	else if (key == R_RGHT)
+	{
+		old_dir_x = d->dir[X];
+		d->dir[X] = old_dir_x * cos(-rotSpeed) - d->dir[Y] * sin(-rotSpeed);
+		d->dir[Y] = old_dir_x * sin(-rotSpeed) + d->dir[Y] * cos(-rotSpeed);
+		old_plane_x = d->plane[X];
+		d->plane[X] = old_plane_x * cos(-rotSpeed) - d->plane[Y] * sin(-rotSpeed);
+		d->plane[Y] = old_plane_x * sin(-rotSpeed) + d->plane[Y] * cos(-rotSpeed);
+	}
+	else if (key == LFT_K)
+	{
+		mv_speed = moveSpeed * -1 ;
 		d_[X] += d->plane[X] * mv_speed;
 		d_[Y] += d->plane[Y] * mv_speed;
-    }
-    else if (key == RGHT_K)
-    {
-        mv_speed = moveSpeed ;
-        d_[X] += d->plane[X] * mv_speed;
-        d_[Y] += d->plane[Y] * mv_speed;
-    }
-    else
-        return (0);
-    d->pos[X] += d_[X];
+	}
+	else if (key == RGHT_K)
+	{
+		mv_speed = moveSpeed ;
+		d_[X] += d->plane[X] * mv_speed;
+		d_[Y] += d->plane[Y] * mv_speed;
+	}
+	else
+		return (0);
+	d->pos[X] += d_[X];
 	d->pos[Y] += d_[Y];
-    raycast(d, d->parsing);
-    return (0);
+	raycast(d, d->parsing);
+	return (0);
 }
 
 int	ft_exit(void)
@@ -120,12 +129,12 @@ int	ft_exit(void)
 
 int main(int ac, char **av)
 {
-    t_cub   	data;
+	t_cub   	data;
    t_parsing	parsing;
 	int 		index;
 	int 		jndex;
 
-    data = (t_cub){0};
+	data = (t_cub){0};
 	index = -1;
 	jndex = -1;
 	if (parsing_directions_colors(&parsing, av, ac)
@@ -158,44 +167,49 @@ int main(int ac, char **av)
 				data.pos[Y] = jndex;
 				data.worldMap[index][jndex]= 0;
 				if (parsing.map[index][jndex] == 'E')
-                {
-                    data.dir[X] = 0;
-		            data.dir[Y] = 1;
-		            data.plane[X] = 0.66;
-		            data.plane[Y] = 0;
-                
-	            }
-                else if (parsing.map[index][jndex] == 'W')
-                {
-                    data.dir[X] = 0;
-                    data.dir[Y] = -1;
-                    data.plane[X] = -0.66;
-                    data.plane[Y] = 0;
-                }
-                else if (parsing.map[index][jndex] == 'S')
-                {
-		            data.dir[X] = -1;
-                    data.dir[Y] = 0;
-                    data.plane[X] = 0;
-		            data.plane[Y] = 0.66;
-                }
-                else if (parsing.map[index][jndex] == 'N')
-                {
-                    data.dir[X] = 1;
-                    data.dir[Y] = 0;
-                    data.plane[X] = 0;
-                    data.plane[Y] = -0.66;
-                }
+				{
+					data.dir[X] = 0;
+					data.dir[Y] = 1;
+					data.plane[X] = 0.66;
+					data.plane[Y] = 0;
+				
+				}
+				else if (parsing.map[index][jndex] == 'W')
+				{
+					data.dir[X] = 0;
+					data.dir[Y] = -1;
+					data.plane[X] = -0.66;
+					data.plane[Y] = 0;
+				}
+				else if (parsing.map[index][jndex] == 'S')
+				{
+					data.dir[X] = -1;
+					data.dir[Y] = 0;
+					data.plane[X] = 0;
+					data.plane[Y] = 0.66;
+				}
+				else if (parsing.map[index][jndex] == 'N')
+				{
+					data.dir[X] = 1;
+					data.dir[Y] = 0;
+					data.plane[X] = 0;
+					data.plane[Y] = -0.66;
+				}
 			}	
 	   }
    }
-    data.mlx_ptr = mlx_init();
-    data.win_ptr = mlx_new_window(data.mlx_ptr, screenWidth, screenHeight, "cub3D");
-    raycast(&data, &parsing);
-    data.parsing = &parsing;
-    mlx_hook(data.win_ptr, 2, 0, key_handle, &data);
-    mlx_hook(data.win_ptr, 17, 2, &ft_exit, &data);
-    mlx_loop(data.mlx_ptr);
+	data.mlx_ptr = mlx_init();
+	data.win_ptr = mlx_new_window(data.mlx_ptr, screenWidth, screenHeight, "cub3D");
+
+	img.img = mlx_new_image(data.mlx_ptr,screenWidth, screenHeight);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	raycast(&data, &parsing);
+
+	data.parsing = &parsing;
+	mlx_hook(data.win_ptr, 2, 0, key_handle, &data);
+	mlx_hook(data.win_ptr, 17, 2, &ft_exit, &data);
+	mlx_loop(data.mlx_ptr);
 	free_parsing(&parsing);
-    return (0);
+	return (0);
 }

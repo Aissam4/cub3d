@@ -6,12 +6,15 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+# include "mlx.h"
+
+
+
 
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 600
-#define screenHeight 600
+#define screenWidth 1000
+#define screenHeight 1000
 
 # define moveSpeed  0.5
 # define rotSpeed   0.3
@@ -30,6 +33,16 @@
 # define X  0
 # define Y  1
 #define BUFFER_SIZE 1
+
+typedef struct	s_dataa {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_dataa;
+
+t_dataa img;
 
 typedef struct s_parsing
 {
@@ -120,4 +133,5 @@ int		contains_newline(char const *s1);
 char	*first_line(char *str);
 char	*second_part(char *str);
 char	*get_next_line(int fd);
+void	my_mlx_pixel_put(t_dataa *data, int x, int y, int color);
 #endif
